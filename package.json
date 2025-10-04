@@ -1,0 +1,23 @@
+{
+  "name": "api-coderhouse",
+  "version": "1.0.0",
+  "description": "API de productos y carrito",
+  "homepage": "https://github.com/AugustOtturi/Api-CoderHouse#readme",
+  "bugs": {
+    "url": "https://github.com/AugustOtturi/Api-CoderHouse/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AugustOtturi/Api-CoderHouse.git"
+  },
+  "license": "ISC",
+  "author": "Augusto Otturi",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
