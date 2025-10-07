@@ -42,5 +42,16 @@
     "stock": 12,
     "category": "Autoayuda/Desarrollo personal",
     "thumbnails": []
+  },
+  {
+    "id": "0ca224c6-4536-40cf-b369-94aa6526e9d8",
+    "title": "1984",
+    "description": "Novela distópica de George Orwell sobre un régimen totalitario que vigila y manipula la verdad. Winston Smith lucha por conservar su identidad.",
+    "code": "AA90",
+    "price": 299,
+    "stock": 20,
+    "category": "Distopía",
+    "status": true,
+    "thumbnails": []
   }
 ]
