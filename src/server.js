@@ -10,7 +10,7 @@ let productManager = new ProductManager("./data/products.json")
 
 
 //!Endpoint => get all products
-app.get('/', async (req, res) => {
+app.get('/api/products/', async (req, res) => {
     try {
         let products = await productManager.getAllProducts()
         res.status(200).json({
@@ -26,7 +26,7 @@ app.get('/', async (req, res) => {
     }
 })
 //!Endpoint => get product by ID
-app.get('/:pid', async (req, res) => {
+app.get('/api/products/:pid', async (req, res) => {
     try {
         let pid = req.params.pid
         let product = await productManager.getProductById(pid)
@@ -44,7 +44,7 @@ app.get('/:pid', async (req, res) => {
 })
 
 //! Endpoint => add new product
-app.post('/', async (req, res) => {
+app.post('/api/products/', async (req, res) => {
     try {
         let { title, description, code, price, status, stock, category, thumbnails } = req.body
         if (!title || !description || !code || !status || !price || !stock || !category || !thumbnails) throw new Error("Faltan datos para realizar la carga de producto nuevo");
@@ -64,7 +64,7 @@ app.post('/', async (req, res) => {
     }
 })
 //!Endpoint => Update Product
-app.put("/:pid", async (req, res) => {
+app.put("/api/products/:pid", async (req, res) => {
     try {
         let pid = req.params.pid;
         let updates = req.body
