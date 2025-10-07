@@ -45,7 +45,7 @@ class ProductManager {
     async addProduct(newProduct) {
         //todo VALIDAR QUE EL LIBRO NO EXISTA ANTES DE PUSHEAR
         try {
-            let { title, description, code, price, stock, category, status = true, thumbnails = [] } = newProduct;
+            let { title, description, code, price, stock, category, status, thumbnails = [] } = newProduct;
             if (!title || !description || !code || !price || !stock || !category) throw new Error('Faltan datos para poder crear el producto');
             let data = await this.getAllProducts();
             if (data.some(el => el.code === code)) throw new Error("Ya existe un producto con ese code");

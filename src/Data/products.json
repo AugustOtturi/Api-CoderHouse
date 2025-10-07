@@ -34,24 +34,13 @@
   },
   {
     "id": "9d2f7c3a-1b54-4a70-9c1b-0f3e2a7d5e88",
-    "title": "Hábitos atómicos",
+    "title": "Habitos Atómicos",
     "description": "James Clear explica cómo pequeños cambios diarios generan mejoras notables a largo plazo con estrategias prácticas para crear y mantener hábitos.",
     "code": "AA04",
     "price": 320,
     "status": true,
     "stock": 12,
     "category": "Autoayuda/Desarrollo personal",
-    "thumbnails": []
-  },
-  {
-    "id": "0ca224c6-4536-40cf-b369-94aa6526e9d8",
-    "title": "1984",
-    "description": "Novela distópica de George Orwell sobre un régimen totalitario que vigila y manipula la verdad. Winston Smith lucha por conservar su identidad.",
-    "code": "AA90",
-    "price": 299,
-    "stock": 20,
-    "category": "Distopía",
-    "status": true,
     "thumbnails": []
   }
 ]
