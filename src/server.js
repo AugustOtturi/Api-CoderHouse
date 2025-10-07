@@ -83,6 +83,26 @@ app.put("/api/products/:pid", async (req, res) => {
 
 })
 
+//!Endopoint => Delete Product
+
+app.delete("/api/products/:pid", async (req, res) => {
+    try {
+        let id = req.params.pid;
+        let products = await productManager.deleteProduct(id);
+        res.status(200).json({
+            status: "Success",
+            products
+
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: "Error",
+            message: error.message
+        })
+
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Escuchando en puerto ${PORT}`)
 })

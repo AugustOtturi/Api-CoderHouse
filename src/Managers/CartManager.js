@@ -8,7 +8,7 @@ class CartManager {
     }
 
 
-    //!Fn => Generar ID
+    //!Fn => Generate ID
     generateId() {
         return crypto.randomUUID();
     }
@@ -19,7 +19,7 @@ class CartManager {
         return data
     }
 
-    //!Fn => GetAllCarts
+    //!Fn => Get all carts
     async getAllCarts() {
         try {
             let fileCarts = await fs.readFile(this.path, "utf-8")
@@ -33,8 +33,16 @@ class CartManager {
         }
 
     }
+    //!Fn => Get carts by id
 
-    //!Fn => Generar nuevo carrito
+    async getCartsById(cid) {
+        let data = await this.getAllCarts()
+        let index = data.findIndex(el => el.id === cid)
+        if (index === -1) throw new Error("El carrito no fue encontrado");
+        return data[index]
+
+    }
+    //!Fn => Generate new cart
     async generateCart(products) {
         try {
             let id = this.generateId()
@@ -55,3 +63,4 @@ class CartManager {
 }
 
 export default CartManager
+

@@ -7,11 +7,11 @@ productManager.getAllProducts().then((res) => {
 }).catch((error) => {
     console.log(error)
 })
-/* productManager.getProductById("8c11e3b9-c03b-4a02-9f9e-e181e69a2c5f").then((res, err) => {
+productManager.getProductById("8c11e3b9-c03b-4a02-9f9e-e181e69a2c5f").then((res, err) => {
     console.log(res)
-}) */
+})
 
-/* productManager.addProduct({
+productManager.addProduct({
     title: "1984",
     description: "Novela distópica de George Orwell sobre un régimen totalitario que vigila y manipula la verdad. Winston Smith lucha por conservar su identidad.",
     code: "AA99",
@@ -21,10 +21,9 @@ productManager.getAllProducts().then((res) => {
     category: "Distopía",
 }).then((res) => {
     console.log(res)
-}).catch((err) => console.log(err)) */
+}).catch((err) => console.log(err))
 
 
-/* productManager.deleteProduct("6da90127-2a7b-4627-8416-48d2c9af2a20").then((res) => {
+productManager.deleteProduct("6da90127-2a7b-4627-8416-48d2c9af2a20").then((res) => {
     console.log(res)
 })
- */
