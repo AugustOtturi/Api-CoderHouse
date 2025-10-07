@@ -11,6 +11,12 @@ class ProductManager {
         return crypto.randomUUID();
     }
 
+    //!Fn => WriteDocument
+    async writeDocument(data) {
+        await fs.writeFile(this.path, JSON.stringify(data, null, 2), "utf-8")
+        return data
+    }
+
     //!Fn => GetAllProducts
     async getAllProducts() {
         try {
@@ -26,62 +32,78 @@ class ProductManager {
     async getProductById(pid) {
         try {
             const data = await this.getAllProducts();
-            let productFound = data.findIndex((element) => { return element.id === pid })
-            if (productFound === -1) throw new Error("El producto no fue encontrado")
-            return data[productFound]
+            let index = data.findIndex(el => el.id === pid)
+            if (index === -1) throw new Error("El producto no fue encontrado")
+            return data[index]
         } catch (error) {
-            throw new Error(`${error.message}`);
+            throw new Error(error.message);
         }
 
     }
-
-
 
     //! Fn => AddProduct
     async addProduct(newProduct) {
         //todo VALIDAR QUE EL LIBRO NO EXISTA ANTES DE PUSHEAR
         try {
-            let { title, description, code, price, status, stock, category } = newProduct;
+            let { title, description, code, price, stock, category, status = true, thumbnails = [] } = newProduct;
             if (!title || !description || !code || !price || !stock || !category) throw new Error('Faltan datos para poder crear el producto');
             let data = await this.getAllProducts();
-            let newId = this.generateId()
-            let product = { id: newId, ...newProduct, status: true, thumbnails: [] }
-            if (data.findIndex((el) => el.id === newId)) throw new Error("El producto con ese ID ya éxiste, vuelve a intentarlo");
+            if (data.some(el => el.code === code)) throw new Error("Ya existe un producto con ese code");
+
+            let product = {
+                id: this.generateId(),
+                title,
+                description,
+                code,
+                price,
+                stock,
+                category,
+                status: true,
+                thumbnails: []
+            }
+
             data.push(product)
-            await fs.writeFile(this.path, JSON.stringify(data, null, 2), "utf-8")
-            return data
+            await this.writeDocument(data);
+            return product
         } catch (error) {
             throw new Error(error.message);
         }
     }
 
+
+
     //!Fn => UpdateProduct
-    upadteProduct(pid, updates) { }
+    async updateProduct(pid, updates) {
+        try {
+            let data = await this.getAllProducts()
+            let index = data.findIndex(el => el.id === pid)
+            if (index === -1) throw new Error("El producto no fue encontrado");
+            data[index] = { ...data[index], ...updates };
+            await this.writeDocument(data)
+            return data[index]
+        } catch (error) {
+            throw new Error(error.message);
+        }
+
+    }
 
 
     //!Fn => DeleteProduct
-    deleteProduct(pid) { }
+    async deleteProduct(pid) {
+        try {
+            let data = await this.getAllProducts()
+            let filterData = data.filter((el) => el.id !== pid)
+            if (filterData.length === data.length) throw new Error("El producto no fue eliminado");
+            await this.writeDocument(filterData)
+            return filterData
+
+
+        } catch (error) {
+            throw new Error(error.message);
+
+        }
+    }
 
 }
 
-let productManager = new ProductManager("../data/products.json")
-
-/* productManager.getAllProducts().then((res, err) => {
-    console.log(res)
-}) */
-/* productManager.getProductById("8c11e3b9-c03b-4a02-9f9e-e181e69a2c5f").then((res, err) => {
-    console.log(res)
-}) */
-
-/* productManager.addProduct({
-    title: "1984",
-    description: "Novela distópica de George Orwell sobre un régimen totalitario que vigila y manipula la verdad. Winston Smith lucha por conservar su identidad.",
-    code: "AA02",
-    price: 299,
-    status: true,
-    stock: 20,
-    category: "Distopía",
-}).then((res) => {
-    console.log(res)
-}).catch((err) => console.log(err)) */
-
+export default ProductManager
