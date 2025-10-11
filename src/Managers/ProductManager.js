@@ -6,18 +6,18 @@ class ProductManager {
         this.path = path;
     }
 
-    //! Fn => Generar ID
+    //! Fn => Generate ID
     generateId() {
         return crypto.randomUUID();
     }
 
-    //!Fn => WriteDocument
+    //!Fn => Write Document
     async writeDocument(data) {
         await fs.writeFile(this.path, JSON.stringify(data, null, 2), "utf-8")
         return data
     }
 
-    //!Fn => GetAllProducts
+    //!Fn => Get all products
     async getAllProducts() {
         try {
             let fileData = await fs.readFile(this.path, "utf-8");
@@ -28,7 +28,7 @@ class ProductManager {
             throw new Error(`${error.message}`);
         }
     }
-    //!Fn => GetProductById
+    //!Fn => Get product by id
     async getProductById(pid) {
         try {
             const data = await this.getAllProducts();
@@ -41,9 +41,8 @@ class ProductManager {
 
     }
 
-    //! Fn => AddProduct
+    //! Fn => Add new product
     async addProduct(newProduct) {
-        //todo VALIDAR QUE EL LIBRO NO EXISTA ANTES DE PUSHEAR
         try {
             let { title, description, code, price, stock, category, status, thumbnails = [] } = newProduct;
             if (!title || !description || !code || !price || !stock || !category) throw new Error('Faltan datos para poder crear el producto');
@@ -72,7 +71,7 @@ class ProductManager {
 
 
 
-    //!Fn => UpdateProduct
+    //!Fn => Update product
     async updateProduct(pid, updates) {
         try {
             let data = await this.getAllProducts()
@@ -88,7 +87,7 @@ class ProductManager {
     }
 
 
-    //!Fn => DeleteProduct
+    //!Fn => Delete product
     async deleteProduct(pid) {
         try {
             let data = await this.getAllProducts()
