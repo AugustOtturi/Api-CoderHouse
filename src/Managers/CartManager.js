@@ -35,7 +35,7 @@ class CartManager {
     }
     //!Fn => Get carts by id
 
-    async getCartsById(cid) {
+    async getCartById(cid) {
         let data = await this.getAllCarts()
         let index = data.findIndex(el => el.id === cid)
         if (index === -1) throw new Error("El carrito no fue encontrado");

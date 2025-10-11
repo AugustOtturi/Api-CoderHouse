@@ -45,7 +45,7 @@ class ProductManager {
     async addProduct(newProduct) {
         try {
             let { title, description, code, price, stock, category, status, thumbnails = [] } = newProduct;
-            if (!title || !description || !code || !price || !stock || !category) throw new Error('Faltan datos para poder crear el producto');
+            if (!title || !description || !code || price == null || stock == null || !category) throw new Error('Faltan datos para poder crear el producto');
             let data = await this.getAllProducts();
             if (data.some(el => el.code === code)) throw new Error("Ya existe un producto con ese code");
 
@@ -57,8 +57,8 @@ class ProductManager {
                 price,
                 stock,
                 category,
-                status: true,
-                thumbnails: []
+                status,
+                thumbnails,
             }
 
             data.push(product)
@@ -77,7 +77,9 @@ class ProductManager {
             let data = await this.getAllProducts()
             let index = data.findIndex(el => el.id === pid)
             if (index === -1) throw new Error("El producto no fue encontrado");
-            data[index] = { ...data[index], ...updates };
+            //!Evitamos poder modificar ID
+            const { id, ...rest } = updates
+            data[index] = { ...data[index], ...rest };
             await this.writeDocument(data)
             return data[index]
         } catch (error) {
