@@ -4,7 +4,7 @@ import ProductManager from '../Managers/ProductManager.js'
 
 
 const router = Router();
-const productManager = new ProductManager("./data/products.json");
+const productManager = new ProductManager("../src/data/products.json");
 
 //!Endpoint => Get all products
 router.get('/', async (req, res) => {
