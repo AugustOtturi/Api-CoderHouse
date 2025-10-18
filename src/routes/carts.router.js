@@ -4,8 +4,8 @@ import ProductManager from '../Managers/ProductManager.js'
 
 
 const router = Router();
-const productManager = new ProductManager("./data/products.json");
-const cartManager = new CartManager("./data/carts.json");
+const productManager = new ProductManager("./src/data/products.json");
+const cartManager = new CartManager("./src/data/carts.json");
 
 
 
