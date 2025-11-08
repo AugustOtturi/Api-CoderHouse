@@ -115,7 +115,7 @@
         <div class='col'>
           <div class='card h-100'>
             <img src='{{thumbnails}}' alt='{{title}} thumbnail'
-                 class='card-img-top' style='height:180px;object-fit:cover;' />
+                 class='card-img-top' style='height:600px;object-fit:cover;' />
             <div class='card-body'>
               <h5 class='card-title'>{{title}}</h5>
               <p class='card-text'>{{description}}</p>
@@ -124,7 +124,6 @@
               <li class='list-group-item'>Categoría: {{category}}</li>
               <li class='list-group-item'>Stock: {{stock}}</li>
               <li class='list-group-item'>Precio: ${{price}}</li>
-              <li class='list-group-item'>Id: {{id}}</li>
             </ul>
             <div class='card-body'>
               <button class='btn btn-danger btn-sm btn-delete' data-id='{{id}}'>Eliminar Libro</button>
@@ -134,7 +133,7 @@
       {{/each}}
     </div>
   {{else}}
-    <p>No hay productos para mostrar.</p>
+    <h1>No hay productos para mostrar.</h1>
   {{/if}}
 </div>
 <script src="/socket.io/socket.io.js"></script>
@@ -206,7 +205,6 @@
   // SOCKET ON
   const socket = io();
   socket.on("listaActualizada", function (arr) {
-  console.log("Socket recibió listaActualizada. Cantidad:", arr.length);
   renderCards(arr);
 });
 </script>

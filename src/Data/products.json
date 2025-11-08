@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "id": "60216c61-d51e-4149-abe5-0ac5bf906478",
+    "title": "1984",
+    "description": "1984 es una novela política de ficción distópica, escrita por George Orwell entre 1947 y 1948 y publicada el 8 de junio de 1949",
+    "code": "0012",
+    "price": "22000",
+    "stock": "100",
+    "category": "Ficción",
+    "status": "true",
+    "thumbnails": "/images/1762581378527-1984.jpeg"
+  },
+  {
+    "id": "2ab962c4-f097-49dc-9ea8-0ff29c467bc6",
+    "title": "Diez negritos",
+    "description": "es una novela policíaca de la escritora británica Agatha Christie, publicada originalmente en Reino Unido por Collins Crime Club el 6 de noviembre de 1939",
+    "code": "0025",
+    "price": "14000",
+    "stock": "90",
+    "category": "Terror",
+    "status": "true",
+    "thumbnails": "/images/1762581452275-diez_negritos.jpg"
+  },
+  {
+    "id": "950f6646-96ce-4f6c-87f9-04d8fc1ade1d",
+    "title": "pedro paramo",
+    "description": "\"Pedro Páramo\" es una novela de Juan Rulfo que trata sobre Juan Preciado, un joven que viaja al pueblo de Comala para encontrar a su padre, Pedro Páramo",
+    "code": "0063",
+    "price": "30000",
+    "stock": "45",
+    "category": "Realismo Mágico",
+    "status": "true",
+    "thumbnails": "/images/1762581566825-pedro_paramo.jpg"
+  },
+  {
+    "id": "160ab871-878f-4d57-821e-f080943dc682",
+    "title": "Rebelión en la granja",
+    "description": "El libro trata sobre una rebelión de animales en una granja contra su granjero, el señor Jones, con el objetivo de crear una sociedad igualitaria y justa",
+    "code": "00150",
+    "price": "15000",
+    "stock": "56",
+    "category": "Sátira",
+    "status": "true",
+    "thumbnails": "/images/1762581834028-rebelion.png"
+  }
+]
