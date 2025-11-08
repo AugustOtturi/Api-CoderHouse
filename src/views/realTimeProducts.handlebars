@@ -1,0 +1,213 @@
+<div class='container py-4'>
+  <div class='row justify-content-center'>
+    <div class='col-lg-8'>
+      <div class='card shadow-sm'>
+        <div class='card-header'>
+          <h5 class='mb-0'>Cargar Nuevo Libro</h5>
+        </div>
+        <div class='card-body'>
+          <form
+            enctype='multipart/form-data'
+            id='cargaLibroForm'
+          >
+            <div class='row g-3'>
+              <div class='col-md-6'>
+                <label for='title' class='form-label'>Nombre del libro</label>
+                <input
+                  type='text'
+                  name='title'
+                  id='title'
+                  placeholder='Nombre del libro'
+                  class='form-control'
+                />
+              </div>
+
+              <div class='col-md-6'>
+                <label for='code' class='form-label'>Código del libro</label>
+                <input
+                  type='text'
+                  name='code'
+                  id='code'
+                  placeholder='Código del libro'
+                  class='form-control'
+                />
+              </div>
+
+              <div class='col-12'>
+                <label for='description' class='form-label'>Descripción</label>
+                <input
+                  type='text'
+                  name='description'
+                  id='description'
+                  placeholder='Descripción del libro'
+                  class='form-control'
+                />
+              </div>
+
+              <div class='col-md-4'>
+                <label for='price' class='form-label'>Precio</label>
+                <div class='input-group'>
+                  <span class='input-group-text'>$</span>
+                  <input
+                    type='number'
+                    name='price'
+                    id='price'
+                    placeholder='Precio del libro'
+                    class='form-control'
+                  />
+                </div>
+              </div>
+
+              <div class='col-md-4'>
+                <label for='status' class='form-label'>Estado</label>
+                <select name='status' id='status' class='form-select'>
+                  <option value='true'>Activo</option>
+                  <option value='false'>No Activo</option>
+                </select>
+              </div>
+
+              <div class='col-md-4'>
+                <label for='stock' class='form-label'>Stock</label>
+                <input
+                  type='number'
+                  name='stock'
+                  id='stock'
+                  placeholder='Stock de libro'
+                  class='form-control'
+                />
+              </div>
+
+              <div class='col-md-6'>
+                <label for='category' class='form-label'>Categoría</label>
+                <input
+                  type='text'
+                  name='category'
+                  id='category'
+                  placeholder='Categoría de libro'
+                  class='form-control'
+                />
+              </div>
+
+              <div class='col-md-6'>
+                <label for='file' class='form-label'>Imagen</label>
+                <input type='file' name='file' id='file' class='form-control' />
+              </div>
+
+              <div class='col-12 d-flex justify-content-end'>
+                <button type='submit' class='btn btn-primary'>
+                  Enviar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='container my-4'>
+  <h1>Home</h1>
+
+  {{#if products.length}}
+    <div id="cards" class='row row-cols-1 row-cols-md-3 g-4'>
+      {{#each products}}
+        <div class='col'>
+          <div class='card h-100'>
+            <img src='{{thumbnails}}' alt='{{title}} thumbnail'
+                 class='card-img-top' style='height:180px;object-fit:cover;' />
+            <div class='card-body'>
+              <h5 class='card-title'>{{title}}</h5>
+              <p class='card-text'>{{description}}</p>
+            </div>
+            <ul class='list-group list-group-flush'>
+              <li class='list-group-item'>Categoría: {{category}}</li>
+              <li class='list-group-item'>Stock: {{stock}}</li>
+              <li class='list-group-item'>Precio: ${{price}}</li>
+              <li class='list-group-item'>Id: {{id}}</li>
+            </ul>
+            <div class='card-body'>
+              <button class='btn btn-danger btn-sm btn-delete' data-id='{{id}}'>Eliminar Libro</button>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p>No hay productos para mostrar.</p>
+  {{/if}}
+</div>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+  // ENVIAR FOMULARIO CREACIÓN
+  let formCreate = document.getElementById("cargaLibroForm");
+  formCreate.addEventListener("submit", async(event)=>{ 
+    
+    event.preventDefault() 
+    const dataFormulario = new FormData(formCreate);
+    let res = await fetch("/api/products", {method: "POST", body: dataFormulario});
+    if(!res.ok) throw new Error("Error al cargar información")
+    formCreate.reset()
+  })
+
+  //ELIMINAR LIBRO
+  const cards = document.getElementById("cards");
+
+  if (cards) {
+    cards.addEventListener("click", async (event) => {
+      let btn = event.target.closest(".btn-delete");
+      if (!btn) return;
+      let id = btn.getAttribute("data-id");
+      let res = await fetch(`/api/products/${id}`, {method: "DELETE"});
+
+      if (!res.ok) { alert("Error al eliminar libro");}
+    });
+  }
+
+  // RENDER CARDS SIMPLE
+  function plantillaCard(p) {
+    const imgSrc = p.thumbnails ? p.thumbnails : "";
+    const desc = p.description ? p.description : "";
+    const cat = p.category ? p.category : "n/a";
+
+    return (
+      "<div class='col'>" +
+        "<div class='card h-100'>" +
+          "<img src='" + imgSrc + "' alt='" + p.title + " thumbnail' class='card-img-top' style='height:180px;object-fit:cover;' />" +
+          "<div class='card-body'>" +
+            "<h5 class='card-title'>" + p.title + "</h5>" +
+            "<p class='card-text'>" + desc + "</p>" +
+          "</div>" +
+          "<ul class='list-group list-group-flush'>" +
+            "<li class='list-group-item'>Categoría: " + cat + "</li>" +
+            "<li class='list-group-item'>Stock: " + p.stock + "</li>" +
+            "<li class='list-group-item'>Precio: $" + p.price + "</li>" +
+            "<li class='list-group-item'>Id: " + p.id + "</li>" +
+          "</ul>" +
+          "<div class='card-body'>" +
+            "<button class='btn btn-danger btn-sm btn-delete' data-id='" + p.id + "'>Eliminar Libro</button>" +
+          "</div>" +
+        "</div>" +
+      "</div>"
+    );
+  }
+
+  function renderCards(lista) {
+    const grid = document.getElementById("cards");
+    if (!grid) return;
+    let html = "";
+    for (let i = 0; i < lista.length; i++) {
+      html += plantillaCard(lista[i]);
+    }
+    grid.innerHTML = html;
+  }
+
+  // SOCKET ON
+  const socket = io();
+  socket.on("listaActualizada", function (arr) {
+  console.log("Socket recibió listaActualizada. Cantidad:", arr.length);
+  renderCards(arr);
+});
+</script>
+
