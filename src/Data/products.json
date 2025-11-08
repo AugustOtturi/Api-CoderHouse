@@ -42,5 +42,16 @@
     "category": "Sátira",
     "status": "true",
     "thumbnails": "/images/1762581834028-rebelion.png"
+  },
+  {
+    "id": "bac535c4-45b4-432c-a26a-c6e53f9975d5",
+    "title": "El extraño caso del doctor Jekyll y el señor Hyde",
+    "description": "El extraño caso del Dr. Jekyll y Mr. Hyde trata sobre un doctor que se transforma en su doble malvado, Mr. Hyde, a través de un experimento.",
+    "code": "AA29",
+    "price": "10000",
+    "stock": "22",
+    "category": "Ficción",
+    "status": "true",
+    "thumbnails": "/images/1762582333589-dr_jekyll.jpg"
   }
 ]
