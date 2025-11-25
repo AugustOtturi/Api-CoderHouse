@@ -6,20 +6,20 @@
         <div class='col'>
           <div class='card h-100'>
             <img
-              src='{{thumbnails}}'
-              alt='{{title}} thumbnail'
+              src='{{this.thumbnails}}'
+              alt='{{this.title}} thumbnail'
               class='card-img-top'
               style='height: 600px; object-fit: cover;'
             />
             <div class='card-body'>
-              <h5 class='card-title'>{{title}}</h5>
-              <p class='card-text'>{{description}}</p>
+              <h5 class='card-title'>{{this.title}}</h5>
+              <p class='card-text'>{{this.description}}</p>
             </div>
 
             <ul class='list-group list-group-flush'>
-              <li class='list-group-item'>Categoría: {{category}}</li>
-              <li class='list-group-item'>Stock: {{stock}}</li>
-              <li class='list-group-item'>Precio: ${{price}}</li>
+              <li class='list-group-item'>Categoría: {{this.category}}</li>
+              <li class='list-group-item'>Stock: {{this.stock}}</li>
+              <li class='list-group-item'>Precio: ${{this.price}}</li>
             </ul>
           </div>
         </div>

@@ -2,12 +2,16 @@ import express from "express"
 import { engine } from "express-handlebars"
 import http from "node:http"
 import { Server } from "socket.io"
-import methodOverride from "method-override";
+import dotenv from "dotenv"
 
 import cartsRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 import viewsRouter from "./routes/views.router.js"
 import morgan from 'morgan';
+import connectMongoDb from './config/db.js'
+
+// VARIABLE DE ENTORNO
+dotenv.config()
 
 // PUERTO
 const PORT = 8080;
@@ -20,10 +24,12 @@ const io = new Server(server)
 // MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(methodOverride('_method'));
 app.use(express.static("public"))
 app.use("/images", express.static("src/images"));
 app.use(morgan("combined"))
+
+// CONEXIÓN MONGODB
+connectMongoDb()
 
 // HANDLEBARS CONFIGURACIÓN
 app.engine("handlebars", engine());

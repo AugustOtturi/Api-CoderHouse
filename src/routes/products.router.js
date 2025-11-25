@@ -4,7 +4,7 @@ import uploader from '../utils/upload.js';
 
 
 const router = Router();
-const productManager = new ProductManager("./src/data/products.json");
+const productManager = new ProductManager();
 
 //!Endpoint => Get all products
 router.get('/', async (req, res) => {
@@ -42,7 +42,7 @@ router.post('/', uploader.single("file"), async (req, res) => {
     const stock = req.body.stock
 
     try {
-        if (!title || !description || !code || !category || price == null || stock == null) throw new Error("Faltan datos para realizar la carga del libro nuevo");
+        if (!title || !description || !code || !category || price == null || stock == null || !status) throw new Error("Faltan datos para realizar la carga del libro nuevo");
         let newProductAdded = await productManager.addProduct({
             title, description, code, price, status, stock, category, thumbnails
         })
